@@ -1,0 +1,8 @@
+{
+  "name": "kaaba-noon",
+  "type": "procedural",
+  "effect": "kaaba",
+  "params": {
+    "crowd": 70
+  }
+}

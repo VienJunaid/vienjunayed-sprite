@@ -1,0 +1,45 @@
+{
+ "name": "cypress",
+ "fps": 1,
+ "palette": {
+  "r": "#d98a5a",
+  "G": "#4f7a57",
+  "g": "#2f5a44",
+  "d": "#1d3a30",
+  "b": "#5b3a2e"
+ },
+ "frames": [
+  [
+   "...g...",
+   "...g...",
+   "...g...",
+   "..Ggg..",
+   "..Ggd..",
+   "..Ggd..",
+   "..Ggd..",
+   "..Ggg..",
+   ".Gggdd.",
+   ".rGggd.",
+   ".rggdd.",
+   ".rGggd.",
+   ".rggdd.",
+   ".GGggd.",
+   ".rggdd.",
+   "GGGggdd",
+   "GGggddd",
+   "GGGggdd",
+   "GGggdgd",
+   "rGGggdd",
+   "GGggddd",
+   "rGGggdd",
+   "GGggdgd",
+   "rGGggdd",
+   "GGggddd",
+   ".rGggd.",
+   ".Gggdd.",
+   "...b...",
+   "...b...",
+   "...b..."
+  ]
+ ]
+}

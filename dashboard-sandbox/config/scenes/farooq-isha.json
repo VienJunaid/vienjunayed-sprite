@@ -1,0 +1,18 @@
+{
+  "theme": "farooq-night",
+  "background": "farooq-night-market",
+  "characters": [
+    {
+      "asset": "vien-atlanta-alive",
+      "x": 0.462,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "wife-atlanta-alive",
+      "x": 0.542,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    }
+  ]
+}

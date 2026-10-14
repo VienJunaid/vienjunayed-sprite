@@ -1,0 +1,12 @@
+{
+  "name": "sophia-asr",
+  "background": "#1b1411",
+  "foreground": "#f6ece0",
+  "accent": "#f0b060",
+  "muted": "#a08a86",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#e6b85a"
+  },
+  "ramp": " .:-=+*#%@"
+}

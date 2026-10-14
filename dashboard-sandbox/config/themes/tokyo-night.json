@@ -1,0 +1,10 @@
+{
+  "name": "tokyo-night",
+  "background": "#1a1b26",
+  "foreground": "#c0caf5",
+  "accent": "#7aa2f7",
+  "muted": "#565f89",
+  "verse": "#ffffff",
+  "colors": { "gold": "#e0af68", "teal": "#73daca", "rose": "#f7768e" },
+  "ramp": " .:-=+*#%@"
+}

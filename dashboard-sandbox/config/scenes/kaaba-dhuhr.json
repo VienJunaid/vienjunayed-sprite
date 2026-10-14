@@ -1,0 +1,18 @@
+{
+  "theme": "kaaba-noon",
+  "background": "kaaba-noon",
+  "characters": [
+    {
+      "asset": "vien-hajj-alive",
+      "x": 0.462,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "wife-hajj-alive",
+      "x": 0.542,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    }
+  ]
+}

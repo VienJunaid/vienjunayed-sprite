@@ -1,0 +1,9 @@
+{
+  "name": "kazakh-meadow",
+  "type": "procedural",
+  "effect": "meadow",
+  "params": {
+    "wind": 1,
+    "seeds": 16
+  }
+}

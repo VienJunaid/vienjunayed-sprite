@@ -1,0 +1,10 @@
+{
+  "name": "catppuccin",
+  "background": "#1e1e2e",
+  "foreground": "#cdd6f4",
+  "accent": "#cba6f7",
+  "muted": "#6c7086",
+  "verse": "#ffffff",
+  "colors": { "gold": "#f9e2af", "teal": "#94e2d5", "rose": "#f38ba8" },
+  "ramp": " .:-=+*#%@"
+}

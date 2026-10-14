@@ -1,0 +1,12 @@
+{
+  "name": "haram-night",
+  "background": "#161522",
+  "foreground": "#eeece6",
+  "accent": "#f2cf72",
+  "muted": "#8a86a0",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#d8a94a"
+  },
+  "ramp": " .:-=+*#%@"
+}

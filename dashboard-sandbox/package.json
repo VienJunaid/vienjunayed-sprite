@@ -1,0 +1,31 @@
+{
+  "name": "rpi-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Islamic ASCII-art home screen dashboard for Raspberry Pi",
+  "type": "module",
+  "workspaces": [
+    "apps/web",
+    "apps/server"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c magenta,cyan \"npm:dev -w apps/server\" \"npm:dev -w apps/web\"",
+    "build": "npm run build -w apps/web && npm run build -w apps/server",
+    "start": "npm run start -w apps/server",
+    "check": "npm run check -w apps/web && npm run check -w apps/server",
+    "kiosk": "./scripts/kiosk.sh",
+    "update": "./scripts/update.sh",
+    "deploy": "./scripts/deploy.sh",
+    "fetch-quran": "node scripts/fetch-quran.mjs",
+    "fetch-recitation": "node scripts/fetch-recitation.mjs",
+    "art": "node scripts/art/aqsa.mjs && node scripts/art/wedding.mjs && node scripts/art/couple.mjs && node scripts/art/horses.mjs",
+    "render-wallpaper-videos": "node omarchy/render-wallpaper-videos.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "puppeteer-core": "^24.0.0"
+  }
+}

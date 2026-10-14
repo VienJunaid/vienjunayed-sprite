@@ -1,0 +1,12 @@
+[Unit]
+Description=RPi dashboard (server + UI)
+After=network-online.target
+
+[Service]
+WorkingDirectory=/home/vien/Tools/rpi-dashboard/rpi-dashboard
+Environment=PATH=/home/vien/.local/share/mise/installs/node/latest/bin:/usr/bin:/bin
+ExecStart=/home/vien/.local/share/mise/installs/node/latest/bin/npm start
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

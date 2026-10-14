@@ -1,0 +1,12 @@
+{
+  "name": "madinah-maghrib",
+  "background": "#2c2150",
+  "foreground": "#fbe8dc",
+  "accent": "#ffb35c",
+  "muted": "#b08aa0",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#ffd27a"
+  },
+  "ramp": " .:-=+*#%@"
+}

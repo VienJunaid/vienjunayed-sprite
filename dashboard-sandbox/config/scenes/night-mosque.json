@@ -1,0 +1,10 @@
+{
+  "theme": "tokyo-night",
+  "background": "water",
+  "characters": [
+    { "asset": "crescent", "x": 0.83, "y": 0.34, "color": "verse" },
+    { "asset": "lantern",  "x": 0.3,  "y": 0,    "anchor": "top-center", "color": "gold" },
+    { "asset": "lantern",  "x": 0.7,  "y": 0,    "anchor": "top-center", "color": "gold" },
+    { "asset": "mosque",   "x": 0.5,  "y": 0.72, "anchor": "bottom-center", "color": "fg", "reflect": true }
+  ]
+}

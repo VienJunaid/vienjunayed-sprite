@@ -1,0 +1,8 @@
+{
+  "name": "farooq-arch",
+  "type": "procedural",
+  "effect": "farooq",
+  "params": {
+    "petals": 18
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "theme": "sunset",
+  "background": "aqsa-dawn",
+  "characters": [
+    {
+      "asset": "cypress",
+      "x": 0.03,
+      "y": 0.84,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "olive-tree",
+      "x": 0.1,
+      "y": 0.86,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "cypress",
+      "x": 0.15,
+      "y": 0.83,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "dome-of-the-rock",
+      "x": 0.31,
+      "y": 0.84,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "al-aqsa",
+      "x": 0.68,
+      "y": 0.84,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "minaret-silsila",
+      "x": 0.86,
+      "y": 0.84,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "cypress",
+      "x": 0.93,
+      "y": 0.83,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "olive-tree",
+      "x": 0.97,
+      "y": 0.87,
+      "anchor": "bottom-center",
+      "flip": true
+    },
+    {
+      "asset": "vien-palestine-alive",
+      "x": 0.462,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "wife-palestine-alive",
+      "x": 0.542,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    }
+  ]
+}

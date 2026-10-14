@@ -1,0 +1,31 @@
+{
+ "name": "olive-tree",
+ "fps": 1,
+ "palette": {
+  "h": "#c7d0a0",
+  "G": "#9aaa7a",
+  "g": "#6f8a5c",
+  "d": "#4a6446",
+  "b": "#6b4636",
+  "B": "#4a2f26"
+ },
+ "frames": [
+  [
+   "......gGgg.gd......",
+   "....GgGgGgGggdg....",
+   "...GgGgGgG.gdgd....",
+   "..hG.GGgGgGgGg.dg..",
+   ".GgGgGg.dgdgdgdgdd.",
+   ".GhG.g.gGgGggdgdg..",
+   "GGgGgGggggdgdgddddd",
+   ".GGgGgGgGggdgdgdgd.",
+   "..gGggg..g.Bddddd..",
+   "....G....BB...g....",
+   "........bB.........",
+   "........bB.........",
+   "........bB.........",
+   ".......bbBB........",
+   "......bb..BB......."
+  ]
+ ]
+}

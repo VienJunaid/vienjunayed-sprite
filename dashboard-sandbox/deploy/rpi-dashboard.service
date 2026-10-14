@@ -1,0 +1,19 @@
+# Installed by scripts/setup-pi.sh (placeholders __USER__ / __UID__ / __DIR__ are substituted).
+[Unit]
+Description=RPi Dashboard server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__USER__
+WorkingDirectory=__DIR__
+ExecStart=/usr/bin/npm start
+Restart=on-failure
+RestartSec=3
+Environment=NODE_ENV=production
+# The Quran player (mpv) reaches the desktop session's sound server through this
+Environment=XDG_RUNTIME_DIR=/run/user/__UID__
+
+[Install]
+WantedBy=multi-user.target

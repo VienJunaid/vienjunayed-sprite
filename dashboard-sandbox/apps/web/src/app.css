@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono.ttf') format('truetype');
+  font-weight: 100 800;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Amiri Quran';
+  src: url('/assets/fonts/AmiriQuran-Regular.ttf') format('truetype');
+  font-display: block;
+}
+
+/* Theme tokens are overwritten at runtime from config/themes/<name>.json */
+:root {
+  --bg: #1a1b26;
+  --fg: #c0caf5;
+  --accent: #7aa2f7;
+  --muted: #565f89;
+  --verse: #ffffff;
+  --font-mono: 'JetBrains Mono', 'CaskaydiaMono Nerd Font', ui-monospace, monospace;
+  --font-arabic: 'Amiri Quran', 'KFGQPC Uthmanic Script HAFS', serif;
+  /* Scale UI with screen height so it reads well on a 7" panel and a TV alike. */
+  font-size: clamp(9px, 1.55vh, 24px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  cursor: none; /* kiosk: no pointer (unclutter doesn't work on Wayland) */
+  user-select: none;
+}
+
+/* A real mouse/trackpad (not the Pi's touchscreen): show the cursor everywhere, overriding every
+   component's `cursor: none` (they set it explicitly since `all: unset` clears the inherited rule). */
+@media (hover: hover) and (pointer: fine) {
+  html, html * {
+    cursor: auto !important;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "haram-aerial",
+  "type": "procedural",
+  "effect": "haram",
+  "params": {
+    "pilgrims": 900,
+    "speed": 1,
+    "pigeons": 14
+  }
+}

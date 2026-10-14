@@ -1,0 +1,12 @@
+# secrets and installs
+.env
+node_modules/
+.venv/
+__pycache__/
+
+# upstream tool, re-clone instead: git clone https://github.com/aldegad/sprite-gen.git
+sprite-gen/
+
+# rendered videos and previews of the couple
+islamic-wallpaper/
+lab/out/

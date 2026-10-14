@@ -1,0 +1,8 @@
+{
+  "name": "sophia-asr",
+  "type": "procedural",
+  "effect": "sophia",
+  "params": {
+    "people": 16
+  }
+}

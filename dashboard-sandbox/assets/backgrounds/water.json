@@ -1,0 +1,13 @@
+{
+  "name": "water",
+  "type": "procedural",
+  "effect": "water",
+  "params": {
+    "speed": 0.6,
+    "horizon": 0.72,
+    "ramp": " .-~=≈",
+    "stars": 0.018,
+    "starRamp": ".·+*",
+    "shootingStars": true
+  }
+}

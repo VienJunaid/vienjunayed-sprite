@@ -1,0 +1,18 @@
+{
+  "theme": "farooq",
+  "background": "farooq-arch",
+  "characters": [
+    {
+      "asset": "bride-farooq",
+      "x": 0.565,
+      "y": 0.995,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "groom-farooq",
+      "x": 0.455,
+      "y": 0.995,
+      "anchor": "bottom-center"
+    }
+  ]
+}

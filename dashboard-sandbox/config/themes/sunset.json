@@ -1,0 +1,10 @@
+{
+  "name": "sunset",
+  "background": "#1a1438",
+  "foreground": "#f6e7d7",
+  "accent": "#ffb35c",
+  "muted": "#9a7aa8",
+  "verse": "#ffffff",
+  "colors": { "gold": "#ffd44a", "rose": "#f59a7a", "teal": "#8fd3ef" },
+  "ramp": " .:-=+*#%@"
+}

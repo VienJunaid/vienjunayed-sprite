@@ -1,0 +1,9 @@
+{
+  "name": "madinah",
+  "type": "procedural",
+  "effect": "madinah",
+  "params": {
+    "people": 34,
+    "wind": 1
+  }
+}

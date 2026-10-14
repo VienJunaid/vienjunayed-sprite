@@ -1,0 +1,9 @@
+[Unit]
+Description=rpi-dashboard live wallpaper (mpvpaper scene swap)
+After=network-online.target rpi-dashboard.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/vien/Tools/rpi-dashboard/rpi-dashboard
+Environment=PATH=/home/vien/.local/share/mise/installs/node/latest/bin:/usr/bin:/bin
+ExecStart=/home/vien/.local/share/mise/installs/node/latest/bin/node omarchy/wallpaper-swap.mjs

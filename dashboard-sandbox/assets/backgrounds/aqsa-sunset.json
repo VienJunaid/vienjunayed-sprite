@@ -1,0 +1,15 @@
+{
+  "name": "aqsa-sunset",
+  "type": "procedural",
+  "effect": "sunset",
+  "params": {
+    "speed": 1,
+    "horizon": 0.64,
+    "sunX": 0.5,
+    "sunY": 0.57,
+    "clouds": 6,
+    "birds": 5,
+    "skyline": true,
+    "motes": 14
+  }
+}

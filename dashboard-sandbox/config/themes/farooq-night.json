@@ -1,0 +1,12 @@
+{
+  "name": "farooq-night",
+  "background": "#0b1024",
+  "foreground": "#f2ead8",
+  "accent": "#ffd27a",
+  "muted": "#8a93c0",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#e8b85a"
+  },
+  "ramp": " .:-=+*#%@"
+}

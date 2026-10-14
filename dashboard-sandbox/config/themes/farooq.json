@@ -1,0 +1,13 @@
+{
+  "name": "farooq",
+  "background": "#b4bcc8",
+  "foreground": "#f4f2ee",
+  "accent": "#d9a441",
+  "muted": "#8a8f99",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#d9a441",
+    "green": "#1f5a3a"
+  },
+  "ramp": " .:-=+*#%@"
+}

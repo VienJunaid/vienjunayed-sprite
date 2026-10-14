@@ -1,0 +1,18 @@
+{
+  "theme": "sophia-asr",
+  "background": "sophia-asr",
+  "characters": [
+    {
+      "asset": "vien-turkey-alive",
+      "x": 0.462,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "wife-turkey-alive",
+      "x": 0.542,
+      "y": 0.985,
+      "anchor": "bottom-center"
+    }
+  ]
+}

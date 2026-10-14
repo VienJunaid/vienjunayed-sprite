@@ -1,0 +1,13 @@
+{
+  "name": "kazakh-meadow",
+  "background": "#3f7fd0",
+  "foreground": "#fbfbf6",
+  "accent": "#f2d23a",
+  "muted": "#9cc6ec",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#d9a441",
+    "red": "#c8283a"
+  },
+  "ramp": " .:-=+*#%@"
+}

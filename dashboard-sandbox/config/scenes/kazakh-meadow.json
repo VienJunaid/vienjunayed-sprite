@@ -1,0 +1,18 @@
+{
+  "theme": "kazakh-meadow",
+  "background": "kazakh-meadow",
+  "characters": [
+    {
+      "asset": "vien-horse-kazakh",
+      "x": 0.39,
+      "y": 0.93,
+      "anchor": "bottom-center"
+    },
+    {
+      "asset": "wife-horse-kazakh",
+      "x": 0.57,
+      "y": 0.995,
+      "anchor": "bottom-center"
+    }
+  ]
+}

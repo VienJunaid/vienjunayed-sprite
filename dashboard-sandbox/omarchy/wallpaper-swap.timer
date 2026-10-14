@@ -1,0 +1,9 @@
+[Unit]
+Description=Check the prayer period every minute and swap the live wallpaper if it changed
+
+[Timer]
+OnCalendar=*:*:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

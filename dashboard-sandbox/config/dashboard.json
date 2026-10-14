@@ -1,0 +1,128 @@
+{
+  "theme": "tokyo-night",
+  "pages": [
+    {
+      "sceneByPrayer": {
+        "fajr": "aqsa-fajr",
+        "dhuhr": "kaaba-dhuhr",
+        "asr": "sophia-asr",
+        "maghrib": "madinah-maghrib",
+        "isha": "farooq-isha"
+      },
+      "widgets": true,
+      "verse": true
+    },
+    {
+      "scene": "haram-aerial",
+      "widgets": [
+        {
+          "id": "islamic-calendar",
+          "area": "rooftop-left"
+        },
+        {
+          "id": "calendar",
+          "area": "rooftop-right"
+        }
+      ],
+      "verse": false
+    },
+    {
+      "scene": "madinah",
+      "widgets": false,
+      "verse": false
+    },
+    {
+      "scene": "farooq-wedding",
+      "widgets": false,
+      "verse": false
+    },
+    {
+      "scene": "night-mosque",
+      "plain": true,
+      "widgets": [
+        {
+          "id": "system-health",
+          "area": "full"
+        }
+      ],
+      "verse": false
+    }
+  ],
+  "fps": 20,
+  "grid": {
+    "rows": 60,
+    "cellWidth": 10,
+    "cellHeight": 18
+  },
+  "verse": {
+    "enabled": true,
+    "rotateMinutes": 30,
+    "maxLength": 120,
+    "featured": [
+      "94:5",
+      "94:6",
+      "2:152",
+      "3:139",
+      "93:3",
+      "93:4",
+      "93:5",
+      "2:153",
+      "2:45",
+      "16:128",
+      "11:115",
+      "55:13",
+      "112:1",
+      "112:4",
+      "1:5",
+      "1:6",
+      "20:25",
+      "29:69",
+      "13:28",
+      "94:7",
+      "94:8",
+      "2:156",
+      "23:118",
+      "21:83",
+      "7:23",
+      "40:44",
+      "97:3",
+      "103:3",
+      "108:1",
+      "110:1",
+      "33:41",
+      "33:42",
+      "73:8",
+      "89:27",
+      "89:28",
+      "89:30",
+      "14:40",
+      "71:10",
+      "17:24",
+      "51:56"
+    ]
+  },
+  "recitation": {
+    "prayerPauseMinutes": 20
+  },
+  "hijri": {
+    "offset": 0
+  },
+  "prayer": {
+    "method": "NorthAmerica",
+    "madhab": "Shafi",
+    "showCurrent": true
+  },
+  "widgets": [
+    {
+      "id": "clock",
+      "area": "top-left",
+      "options": {
+        "hour12": true
+      }
+    },
+    {
+      "id": "prayer-times",
+      "area": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "night-sky",
+  "type": "procedural",
+  "effect": "water",
+  "params": { "speed": 0.4, "horizon": 1.0, "stars": 0.03 }
+}

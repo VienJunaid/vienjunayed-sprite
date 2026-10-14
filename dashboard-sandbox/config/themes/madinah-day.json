@@ -1,0 +1,13 @@
+{
+  "name": "madinah-day",
+  "background": "#2a62c4",
+  "foreground": "#f6f6f3",
+  "accent": "#45b872",
+  "muted": "#98c3ee",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#e2b24a",
+    "green": "#2f9e57"
+  },
+  "ramp": " .:-=+*#%@"
+}

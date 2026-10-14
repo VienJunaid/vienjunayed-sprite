@@ -1,0 +1,12 @@
+{
+  "name": "kaaba-noon",
+  "background": "#1c2433",
+  "foreground": "#f6f5f1",
+  "accent": "#d9b25a",
+  "muted": "#8a94a6",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#c9a14a"
+  },
+  "ramp": " .:-=+*#%@"
+}

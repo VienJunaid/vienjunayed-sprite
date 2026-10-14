@@ -1,0 +1,11 @@
+{
+  "name": "madinah-maghrib",
+  "type": "procedural",
+  "effect": "madinah",
+  "params": {
+    "people": 34,
+    "wind": 0.6,
+    "time": "sunset",
+    "openUmbrellas": true
+  }
+}

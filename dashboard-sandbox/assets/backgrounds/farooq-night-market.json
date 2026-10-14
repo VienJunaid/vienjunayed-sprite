@@ -1,0 +1,8 @@
+{
+  "name": "farooq-night-market",
+  "type": "procedural",
+  "effect": "farooqNight",
+  "params": {
+    "walkers": 10
+  }
+}
