@@ -3,13 +3,20 @@
   import { api } from '../lib/api'
   import type { DashboardConfig } from '../lib/types'
   import { prefs, setGlass } from '../lib/prefs.svelte'
+  import type { Direction } from '../lib/pages'
   import { goToSleep, pickBackground, view } from '../lib/viewState.svelte'
 
   /**
-   * Settings, opened by tapping the clock. Scenery mode is a view switch; the toggles are saved to
-   * config/dashboard.json (the dashboard then live-reloads with the new setting).
+   * Settings, opened by tapping the clock (or the ⚙ where there is no clock). The Page / Scene row
+   * is the only pointer way to change what is on screen. Scenery mode is a view switch; the toggles
+   * are saved to config/dashboard.json (the dashboard then live-reloads with the new setting).
    */
-  let { config, homeBackground }: { config: DashboardConfig; homeBackground: string } = $props()
+  let { config, homeBackground, where, onstep }: {
+    config: DashboardConfig
+    homeBackground: string
+    where: string
+    onstep: (dir: Direction) => void
+  } = $props()
 
   let saving = $state(false)
   const clock = $derived(config.widgets.find((w) => w.id === 'clock'))
@@ -26,10 +33,10 @@
     // The server's file watcher reloads the page with the new setting.
   }
 
-  function enterScenery() {
+  function toggleScenery() {
     view.selected = null
     view.settingsOpen = false
-    view.scenery = true
+    view.scenery = !view.scenery
   }
 
   function openQuran() {
@@ -45,6 +52,17 @@
   <header>⚙ Settings</header>
   <button class="close" onclick={close} aria-label="Close settings">✕</button>
 
+  <div class="row">
+    <span class="label">
+      <b>{view.scenery ? 'Scene' : 'Page'}</b>
+      <small>{where}</small>
+    </span>
+    <span class="steps">
+      <button onclick={() => onstep('prev')} aria-label="Previous">◂</button>
+      <button onclick={() => onstep('next')} aria-label="Next">▸</button>
+    </span>
+  </div>
+
   <button class="row action" onclick={goToSleep}>
     <span class="label">
       <b>Sleep mode</b>
@@ -53,12 +71,12 @@
     <span class="go">sleep ▸</span>
   </button>
 
-  <button class="row action" onclick={enterScenery}>
+  <button class="row action" onclick={toggleScenery}>
     <span class="label">
       <b>Scenery mode</b>
-      <small>Only the pixel art. Tap right or left to browse every scene; ✕ at the bottom to return.</small>
+      <small>Only the pixel art. Browse every scene from the Scene row above; ✕ at the bottom to return.</small>
     </span>
-    <span class="go">enter ▸</span>
+    <span class="go">{view.scenery ? 'leave ▸' : 'enter ▸'}</span>
   </button>
 
   <button class="row action" onclick={() => pickBackground(0, config.pages?.[0]?.sceneOverride)}>

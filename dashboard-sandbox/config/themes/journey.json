@@ -1,0 +1,12 @@
+{
+  "name": "journey",
+  "background": "#3a3470",
+  "foreground": "#fbf6ea",
+  "accent": "#e9b84a",
+  "muted": "#c8b8c8",
+  "verse": "#ffffff",
+  "colors": {
+    "gold": "#e9b84a"
+  },
+  "ramp": " .:-=+*#%@"
+}

@@ -50,6 +50,8 @@ def to_rows(im, palette):
     return rows
 
 
-def save(name, palette, fps, images):
+def save(name, palette, fps, images, actions=None):
     body = {"name": name, "fps": fps, "palette": palette, "frames": [to_rows(im, palette) for im in images]}
+    if actions:  # one-shot animations the dashboard plays on a tap, e.g. {"wave": [images]}
+        body["actions"] = {k: {"fps": fps, "frames": [to_rows(im, palette) for im in v]} for k, v in actions.items()}
     (CHARS / f"{name}.json").write_text(json.dumps(body, indent=1) + "\n")

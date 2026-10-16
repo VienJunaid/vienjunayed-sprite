@@ -21,6 +21,8 @@ export interface SpriteConfig {
   reflect?: boolean
   /** Mirror left ↔ right. */
   flip?: boolean
+  /** Only load the asset: the background effect draws it itself (the journey's riders and landmarks). */
+  hidden?: boolean
 }
 
 export interface SceneConfig {
@@ -103,6 +105,8 @@ export interface CharacterAsset {
    * transparent). Rendered with half blocks, two pixels per text cell vertically.
    */
   palette?: Record<string, string>
+  /** One-shot animations played on a tap (pixel art only), e.g. `wave`; the idle loop resumes after. */
+  actions?: Record<string, { fps?: number; frames: string[][] }>
 }
 
 export interface ProceduralBackground {

@@ -33,8 +33,9 @@ export function createScene(
   const ctx: SceneContext = { ...shared, theme }
   const bg = ctx.palette.id(theme.background)
   const pixels = new PixelLayer(ctx.glyphs)
-  const background = createBackground(ctx, assets.background)
+  const background = createBackground(ctx, assets.background, assets.characters)
   const sprites = scene.characters.flatMap((cfg) => {
+    if (cfg.hidden) return [] // loaded for the background effect to draw itself
     const asset = assets.characters.get(cfg.asset)
     if (!asset) {
       console.warn(`Character "${cfg.asset}" not found in assets/characters/`)
@@ -57,6 +58,17 @@ export function createScene(
       pixels.resolve(grid)
       for (const s of asciiSprites) s.draw(grid, t, pixels)
       background.overlay?.(grid, t)
+    },
+    /**
+     * A tap at pixel-layer (x, y), scene time t. On a figure that can wave: it waves, and anyone
+     * else in the scene who can waves back a beat later. Returns whether a figure was hit.
+     */
+    tap(x: number, y: number, t: number) {
+      const wavers = pixelSprites.filter((s) => s.play)
+      const hit = wavers.find((s) => s.hit?.(x, y))
+      if (!hit?.play?.('wave', t)) return false
+      for (const s of wavers) if (s !== hit) s.play?.('wave', t + 0.5)
+      return true
     },
   }
 }

@@ -8,6 +8,10 @@ import type { SceneContext } from './types'
 export interface Sprite {
   kind: 'ascii' | 'pixel'
   draw(grid: Grid, t: number, pixels: PixelLayer): void
+  /** Pixel sprites: is pixel (x, y) of the pixel layer on the figure as last drawn? */
+  hit?(x: number, y: number): boolean
+  /** Play a one-shot action (e.g. `wave`) starting at scene time `at`. False if the asset has none. */
+  play?(action: string, at: number): boolean
 }
 
 const frameAt = <T>(frames: T[], fps: number, t: number) => frames[Math.floor(Math.max(0, t) * fps) % frames.length]
@@ -33,7 +37,7 @@ function pixelSprite(ctx: SceneContext, asset: CharacterAsset, cfg: SpriteConfig
   for (const [key, hex] of Object.entries(asset.palette!)) ids[key] = ctx.palette.id(hex)
   const fps = asset.fps ?? 1
 
-  const frames = asset.frames.map((rows) => {
+  const build = (all: string[][]) => all.map((rows) => {
     const w = Math.max(...rows.map((r) => Array.from(r).length))
     const h = rows.length
     const data = new Uint16Array(w * h)
@@ -45,17 +49,45 @@ function pixelSprite(ctx: SceneContext, asset: CharacterAsset, cfg: SpriteConfig
     )
     return { w, h, data }
   })
+  const frames = build(asset.frames)
+  const actions = Object.fromEntries(
+    Object.entries(asset.actions ?? {}).map(([name, a]) => [name, { fps: a.fps ?? fps, frames: build(a.frames) }]),
+  )
+
+  let playing: { name: string; at: number } | null = null
+  let idleFrom = 0 // the idle loop restarts here after an action, so it resumes from its first frame
+  let last = { f: frames[0], x0: 0, y0: 0 }
 
   return {
     kind: 'pixel',
     draw(_grid, t, px) {
-      const f = frameAt(frames, fps, t)
+      let f = frameAt(frames, fps, t - idleFrom)
+      if (playing) {
+        const a = actions[playing.name]
+        const i = Math.floor((t - playing.at) * a.fps)
+        if (i >= a.frames.length) {
+          playing = null
+          idleFrom = t
+          f = frames[0]
+        } else if (i >= 0) f = a.frames[i] // i < 0: a delayed start, still idling
+      }
       const [x0, y0] = origin(cfg, px.w, px.h, f.w, f.h)
+      last = { f, x0, y0 }
       for (let y = 0; y < f.h; y++)
         for (let x = 0; x < f.w; x++) {
           const c = f.data[y * f.w + x]
           if (c) px.set(x0 + x, y0 + y, c)
         }
+    },
+    hit(x, y) {
+      const { f, x0, y0 } = last
+      // The figure's own box, not just its lit pixels: a 26 px figure is a small target
+      return x >= x0 && y >= y0 && x < x0 + f.w && y < y0 + f.h
+    },
+    play(action, at) {
+      if (!actions[action] || playing) return false
+      playing = { name: action, at }
+      return true
     },
   }
 }

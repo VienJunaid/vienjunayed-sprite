@@ -97,8 +97,22 @@
         }
     }
 
+    // A tap on the art (not on a box, a button or an open panel) goes to the scene: the couple wave.
+    let sceneTime = 0
+    const onTap = (e: MouseEvent) => {
+      if (nav.paused || (e.target as Element | null)?.closest?.('button, .panel, figure, canvas.banner, .backdrop')) return
+      const box = canvas.getBoundingClientRect()
+      const grid = grids[nav.page]
+      if (!grid || !box.width) return
+      const x = Math.floor(((e.clientX - box.left) / box.width) * grid.cols)
+      const y = Math.floor(((e.clientY - box.top) / box.height) * grid.rows * 2) // two pixels per cell
+      scenes[nav.page].tap(x, y, sceneTime)
+    }
+    window.addEventListener('click', onTap)
+
     let frames = 0, cpu = 0, lastStat = performance.now()
     const stop = startLoop(config.fps || 30, (t) => {
+      sceneTime = t
       if (nav.paused) {
         // Idle; restart the FPS count so the first reading after the pause isn't skewed
         frames = 0
@@ -138,6 +152,7 @@
     return () => {
       stop()
       window.removeEventListener('resize', layout)
+      window.removeEventListener('click', onTap)
       renderer.destroy()
     }
   })

@@ -1,0 +1,84 @@
+{
+  "theme": "journey",
+  "background": "journey",
+  "characters": [
+    {
+      "asset": "rider-him-aqsa",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-her-aqsa",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-him-makkah",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-her-makkah",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-him-madinah",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-her-madinah",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-him-istanbul",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "rider-her-istanbul",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "dome-of-the-rock",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "al-aqsa",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "minaret-silsila",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "cypress",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    },
+    {
+      "asset": "olive-tree",
+      "x": 0,
+      "y": 0,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "journey",
+  "type": "procedural",
+  "effect": "journey",
+  "params": {
+    "stopSeconds": 30,
+    "speed": 14,
+    "birds": 6
+  }
+}

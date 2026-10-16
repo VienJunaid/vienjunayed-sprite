@@ -216,3 +216,49 @@ for (const [name, o] of Object.entries(women)) {
   const frames = [-1, 0, 1].map((sway) => { const p = new Pix(WW, WH); o.draw(p, sway); return p })
   save(`wife-${name}-sways`, { palette: o.palette, fps: 1, frames })
 }
+
+// ── Wave: the outer arm raised, hand swinging. Four poses per figure: raising, hand left / centre / right.
+// He waves with the arm on the viewer's left, she with the one on the right, so neither arm crosses the other.
+function line(p, x0, y0, x1, y1, k) {
+  const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0), 1)
+  for (let i = 0; i <= n; i++) {
+    const x = Math.round(x0 + ((x1 - x0) * i) / n), y = Math.round(y0 + ((y1 - y0) * i) / n)
+    p.set(x, y, k); p.set(x + 1, y, k)
+  }
+}
+/** side: -1 = viewer's left, +1 = right. sleeve/hand are palette keys; handY = row of the lowered hand to remove. */
+function waveArm(p, cx, side, pose, { sleeve, hand, shade = hand, handY, cuff }) {
+  if (handY !== undefined) { p.set(cx + side * 8, handY, '.'); p.set(cx + side * 8, handY + 1, '.') }
+  const o = side < 0 ? -1 : 0 // lines are 2 px wide to the right, so shift the left arm one column
+  const sx = cx + side * 6 + o, sy = 18
+  const [ex, ey, hx, hy] = pose === 'mid'
+    ? [cx + side * 9 + o, 23, cx + side * 10 + o, 18]
+    : [cx + side * 9 + o, 21, cx + side * 9 + o + pose, 11]
+  line(p, sx, sy, ex, ey, sleeve)
+  line(p, ex, ey, hx, hy, sleeve)
+  if (cuff) { p.set(hx, hy + 1, cuff); p.set(hx + 1, hy + 1, cuff) }
+  p.rect(hx, hy - 2, hx + 1, hy, (x) => (x === hx ? hand : shade)) // open hand
+}
+const POSES = ['mid', -1, 0, 1]
+const manArm = {
+  palestine: { sleeve: 'T', hand: 'F', shade: 'f', handY: 31 },
+  hajj: { sleeve: 'F', hand: 'F', shade: 'f', handY: 30 },
+  turkey: { sleeve: 'N', hand: 'F', shade: 'f', handY: 31, cuff: 'G' },
+  saudi: { sleeve: 'T', hand: 'F', shade: 'f', handY: 31 },
+  atlanta: { sleeve: 'W', hand: 'F', shade: 'f', handY: 30 },
+}
+const womanArm = {
+  palestine: { sleeve: 'D', hand: 'F', shade: 'f', handY: 30, cuff: 'R' },
+  hajj: { sleeve: 'K', hand: 'l', shade: 'k' },
+  turkey: { sleeve: 'C', hand: 'F', shade: 'f', handY: 30 },
+  saudi: { sleeve: 'K', hand: 'F', shade: 'f', handY: 31, cuff: 'G' },
+  atlanta: { sleeve: 'C', hand: 'F', shade: 'f' },
+}
+for (const [name, o] of Object.entries(men)) {
+  const frames = POSES.map((pose) => { const p = new Pix(MW, MH); o.draw(p, 0); waveArm(p, mx, -1, pose, manArm[name]); return p })
+  save(`vien-${name}-wave`, { palette: o.palette, fps: 1, frames })
+}
+for (const [name, o] of Object.entries(women)) {
+  const frames = POSES.map((pose) => { const p = new Pix(WW, WH); o.draw(p, 0); waveArm(p, wx, 1, pose, womanArm[name]); return p })
+  save(`wife-${name}-wave`, { palette: o.palette, fps: 1, frames })
+}

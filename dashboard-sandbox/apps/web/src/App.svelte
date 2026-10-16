@@ -183,11 +183,13 @@
   let reciting = $derived(!!recitation.now && recitation.now.status !== 'idle')
   let verseShown = $derived(!!pageConfigs[page]?.verse && (!!config?.verse.enabled || reciting))
 
-  // ---- navigation: tap the right/left half of the screen, swipe, arrow keys.
+  // ---- navigation: only from Settings (its Page / Scene row) and the arrow keys. A tap or swipe
+  // on the scene itself never changes it, so the art (the couple) is free to take taps of its own.
   // In scenery mode this browses every scene; otherwise it moves between pages.
   let lastNav = 0
-  function go(d: Direction) {
-    if (!scenes || view.sleeping || view.settingsOpen || view.quran || view.expanded || view.picking !== null || performance.now() - lastNav < 950) return
+  /** One step, from the Settings row: allowed while the panel is open. */
+  function step(d: Direction) {
+    if (!scenes || performance.now() - lastNav < 950) return
     const count = view.scenery ? gallery.length : pageConfigs.length
     if (count < 2) return
     lastNav = performance.now()
@@ -195,6 +197,16 @@
     if (view.scenery) galleryIndex = (galleryIndex + dir + count) % count
     else page = (page + dir + count) % count
   }
+  /** Arrow keys and widgets (next-page): not while something is open over the scene. */
+  function go(d: Direction) {
+    if (view.sleeping || view.settingsOpen || view.quran || view.expanded || view.picking !== null) return
+    step(d)
+  }
+  /** What the Settings row is stepping through, e.g. "Page 2 of 5 · Haram Aerial". */
+  let whereLabel = $derived.by(() => {
+    const name = sceneNames[active] ? ` · ${pretty(sceneNames[active])}` : ''
+    return view.scenery ? `Scene ${galleryIndex + 1} of ${gallery.length}${name}` : `Page ${page + 1} of ${pageConfigs.length}${name}`
+  })
 
   $effect(() => onNavigate(go))
 
@@ -211,23 +223,8 @@
         else view.scenery = false
       }
     }
-    let downX = 0, downY = 0
-    const onDown = (e: PointerEvent) => ((downX = e.clientX), (downY = e.clientY))
-    const onUp = (e: PointerEvent) => {
-      // Taps on the boxes (clock, Salah, settings, ✕) are theirs, not navigation
-      if (view.sleeping || view.settingsOpen || view.quran || view.expanded || view.picking !== null || (e.target as Element | null)?.closest?.('button, .panel, figure, canvas.banner')) return
-      const dx = e.clientX - downX, dy = e.clientY - downY
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 'next' : 'prev')
-      else if (Math.hypot(dx, dy) < 10) go(e.clientX > window.innerWidth / 2 ? 'next' : 'prev')
-    }
     window.addEventListener('keydown', onKey)
-    window.addEventListener('pointerdown', onDown)
-    window.addEventListener('pointerup', onUp)
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('pointerdown', onDown)
-      window.removeEventListener('pointerup', onUp)
-    }
+    return () => window.removeEventListener('keydown', onKey)
   })
 
   const AREAS: Area[] = [
@@ -238,6 +235,8 @@
   /** A page lists its own widgets, or `true` for the shared ones in dashboard.json → widgets. */
   let pageWidgets = $derived<WidgetConfig[]>(Array.isArray(current?.widgets) ? current.widgets : current?.widgets ? (config?.widgets ?? []) : [])
   const inArea = (area: Area) => pageWidgets.filter((w) => w.area === area && widgets[w.id])
+  /** The clock opens Settings; where no clock is on screen, a small ⚙ takes its top-left place. */
+  let hasClock = $derived(!view.scenery && pageWidgets.some((w) => w.id === 'clock' && widgets[w.id]))
 </script>
 
 <main>
@@ -296,7 +295,11 @@
       {/key}
     {/if}
 
-    {#if view.settingsOpen}<Settings {config} homeBackground={pageConfigs[0]?.sceneOverride ? pretty(pageConfigs[0].sceneOverride) : 'Follow prayer times'} />{/if}
+    {#if !hasClock && !view.settingsOpen && view.picking === null && !view.quran && !view.expanded}
+      <button class="open-settings" class:faint={view.scenery} onclick={() => (view.settingsOpen = true)} aria-label="Open settings">⚙</button>
+    {/if}
+
+    {#if view.settingsOpen}<Settings {config} where={whereLabel} onstep={step} homeBackground={pageConfigs[0]?.sceneOverride ? pretty(pageConfigs[0].sceneOverride) : 'Follow prayer times'} />{/if}
     {#if view.quran}<QuranPlayer />{/if}
     {#if view.picking !== null}
       <BackgroundPicker {config} page={view.picking} names={gallery.map((i) => sceneNames[i]).filter(Boolean)} />
@@ -353,6 +356,18 @@
   :global(html.glass) .bg-box { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(2px); }
   .bg-box span { color: var(--accent); margin-left: 0.4rem; }
   .bg-box:active { border-color: var(--accent); }
+
+  /* Top left, where the clock sits on the home page: the only way to change page or scene */
+  .open-settings {
+    all: unset;
+    position: absolute; left: 2.5vw; top: 3.5vh; z-index: 10;
+    width: 2.6rem; height: 2.6rem; display: grid; place-items: center;
+    font-size: 1.2rem; color: var(--fg); cursor: none;
+    border: 1px solid color-mix(in srgb, var(--muted) 80%, transparent);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+  }
+  .open-settings:active { border-color: var(--accent); }
+  .open-settings.faint { opacity: 0.35; }
 
   .exit-scenery {
     all: unset;

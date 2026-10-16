@@ -15,7 +15,13 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).parent))
 import chars
+from sprite_gen.effects import breathe as _breathe
 from sprite_gen.effects.breathe import bake_breathe_sequence, resolve_anatomy
+
+# Breathe ends each warped frame with an outline normaliser that thins dark silhouette edges to
+# 1 px. This art has no outlines, so that pass ate a column off the hair, the agal and the black
+# abaya (and only on warped frames, so they flickered). Switched off here; sprite-gen is untouched.
+_breathe._thin_outline_1px = lambda out: None
 
 FPS = 6
 SECONDS = 20                  # divides the 60 s wallpaper loop
@@ -30,9 +36,11 @@ GUSTS = {
     "wife": [(20, [1, 1, 1, 1, 0]), (61, [1, 1, 0, -1, -1, 0]), (88, [-1, -1, 0]), (104, [1, 1, 1, 0])],
 }
 BREATHE = {
-    "vien": {"depth": 0.04, "depth_x": 0.03, "breaths": 5, "lag": 0.10, "rigid_row": RIGID_ROW},
-    "wife": {"depth": 0.04, "depth_x": 0.03, "breaths": 6, "lag": 0.10, "rigid_row": RIGID_ROW},
+    "vien": {"depth": 0.04, "depth_x": 0.03, "breaths": 5, "lag": 0.0, "rigid_row": RIGID_ROW},
+    "wife": {"depth": 0.04, "depth_x": 0.03, "breaths": 6, "lag": 0.0, "rigid_row": RIGID_ROW},
 }
+# Tap-to-wave, as indexes into <name>-wave.json: 0 = arm rising, 1 / 2 / 3 = hand left / centre / right
+WAVE = [0, 0, 2, 1, 1, 2, 3, 3, 2, 1, 1, 2, 3, 3, 2, 0, 0]
 PLACES = ["palestine", "hajj", "turkey", "saudi", "atlanta"]
 
 
@@ -44,24 +52,33 @@ def timeline(who):
     return sway
 
 
+def pad(im):
+    padded = Image.new("RGBA", (im.width, im.height + HEADROOM), (0, 0, 0, 0))
+    padded.paste(im, (0, HEADROOM))
+    return padded
+
+
 def build(who, place):
     src = chars.load(f"{who}-{place}-sways")
-    stills = {}
-    for s, im in zip((-1, 0, 1), chars.to_images(src)):
-        padded = Image.new("RGBA", (im.width, im.height + HEADROOM), (0, 0, 0, 0))
-        padded.paste(im, (0, HEADROOM))
-        stills[s] = padded
+    stills = {s: pad(im) for s, im in zip((-1, 0, 1), chars.to_images(src))}
+    poses = [pad(im) for im in chars.to_images(chars.load(f"{who}-{place}-wave"))]
     sway = timeline(who)
     cfg = BREATHE[who]
     frames, _ = bake_breathe_sequence([stills[s] for s in sway], cfg)
     name = f"{who}-{place}-alive"
-    chars.save(name, src["palette"], FPS, frames)
+    # The wave holds the body at rest. With lag 0 the Breathe phase of idle frame 0 is exactly rest,
+    # and the dashboard restarts the idle loop there when the wave ends, so there is no jump back.
+    assert frames[0].tobytes() == stills[0].tobytes(), f"{name}: idle frame 0 is not the rest pose"
     anat = resolve_anatomy(stills[sway[0]], cfg)
+    chars.save(name, src["palette"], FPS, frames, actions={"wave": [poses[i] for i in WAVE]})
     distinct = len({f.tobytes() for f in frames})
     tops = [f.getbbox()[1] for f in frames]
-    head = {f.crop((0, t, f.width, t + 13)).tobytes() for f, t in zip(frames, tops)}
+    rest = stills[0]
+    original = rest.crop((0, rest.getbbox()[1], rest.width, rest.getbbox()[1] + 13)).tobytes()
+    same = all(f.crop((0, t, f.width, t + 13)).tobytes() == original for f, t in zip(frames, tops))
     print(f"{name:24} {N} frames, {distinct} distinct, head rides {min(tops)}..{max(tops)} "
-          f"(rest {HEADROOM + 1}), head pixels unchanged: {len(head) == 1}, clipped: {min(tops) == 0}")
+          f"(rest {HEADROOM + 1}), head identical to the original art in every frame: {same}")
+    assert same, f"{name}: the head changed"
     return frames
 
 
